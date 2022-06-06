@@ -1,16 +1,18 @@
 import { Module } from '@nestjs/common';
-import { CompaniesController } from './companies.controller';
-import { RegisterCompanyHandler } from '../../application/register-company.handler';
-import { MongoCompanyRepository } from '../mongodb/company.repository';
+import { ListJobsHandler } from 'src/jobs/application/list-jobs/list-jobs.handler';
+import { RegisterJobHandler } from 'src/jobs/application/register-job.handler';
 import { DataSource } from 'typeorm';
 import { ListCompaniesHandler } from '../../application/list-companies.handler';
-import { RegisterJobHandler } from 'src/jobs/application/register-job.handler';
+import { RegisterCompanyHandler } from '../../application/register-company.handler';
+import { MongoCompanyRepository } from '../mongodb/company.repository';
 import { MongoJobRepository } from '../mongodb/job.repository';
+import { CompaniesController } from './companies.controller';
 import { JobsController } from './jobs.controller';
 
 @Module({
   controllers: [CompaniesController, JobsController],
   providers: [
+    ListJobsHandler,
     ListCompaniesHandler,
     RegisterCompanyHandler,
     RegisterJobHandler,

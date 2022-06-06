@@ -1,15 +1,18 @@
 import { Column, Entity, ObjectIdColumn } from 'typeorm';
 import { CompanyId } from './company-id';
 import { Contact } from './contact.entity';
-import { CourseId } from './course-id';
+import { Course } from './course';
 import { JobId } from './job-id';
-import { Type } from './type.entity';
-import { Workspace } from './workspace.entity';
+import { Type } from './type';
+import { Workspace } from './workspace';
 
 @Entity()
 export class Job {
   @ObjectIdColumn()
   private _id: JobId;
+
+  @Column()
+  private title: string;
 
   @Column()
   private description: string;
@@ -21,63 +24,140 @@ export class Job {
   private type: Type;
 
   @Column()
-  private hoursPerWeek: number | null;
+  private tags: string[];
 
   @Column()
-  private salary: number | null;
-
-  @Column()
-  private workspace: Workspace | null;
-
-  @Column()
-  private courses: CourseId[];
+  private courses: Course[];
 
   @Column(() => Contact)
   private contact: Contact;
 
+  @Column()
+  private hoursPerWeek?: number;
+
+  @Column()
+  private salary?: number;
+
+  @Column()
+  private workspace?: Workspace;
+
+  @Column()
+  private hardSkills: string;
+
+  @Column()
+  private softSkills: string;
+
   private constructor(
     id: JobId,
+    title: string,
     description: string,
     companyId: CompanyId,
     type: Type,
-    hoursPerWeek: number | null,
-    salary: number | null,
-    workspace: Workspace | null,
-    courses: CourseId[],
+    tags: string[],
+    courses: Course[],
     contact: Contact,
+    hoursPerWeek?: number,
+    salary?: number,
+    workspace?: Workspace,
+    hardSkills?: string,
+    softSkills?: string,
   ) {
     this._id = id;
+    this.title = title;
     this.description = description;
     this.companyId = companyId;
     this.type = type;
+    this.tags = tags;
+    this.courses = courses;
+    this.contact = contact;
     this.hoursPerWeek = hoursPerWeek;
     this.salary = salary;
     this.workspace = workspace;
-    this.courses = courses;
-    this.contact = contact;
+    this.hardSkills = hardSkills;
+    this.softSkills = softSkills;
   }
 
   public static register(
     id: JobId,
+    title: string,
     description: string,
     companyId: CompanyId,
     type: Type,
-    hoursPerWeek: number | null,
-    salary: number | null,
-    workspace: Workspace | null,
-    courses: CourseId[],
+    tags: string[],
+    courses: Course[],
     contact: Contact,
+    hoursPerWeek?: number,
+    salary?: number,
+    workspace?: Workspace,
+    hardSkills?: string,
+    softSkills?: string,
   ): Job {
     return new Job(
       id,
+      title,
       description,
       companyId,
       type,
+      tags,
+      courses,
+      contact,
       hoursPerWeek,
       salary,
       workspace,
-      courses,
-      contact,
+      hardSkills,
+      softSkills,
     );
+  }
+
+  public getId(): JobId {
+    return this._id;
+  }
+
+  public getTitle(): string {
+    return this.title;
+  }
+
+  public getDescription(): string {
+    return this.description;
+  }
+
+  public getCompanyId(): CompanyId {
+    return this.companyId;
+  }
+
+  public getType(): Type {
+    return this.type;
+  }
+
+  public getTags(): string[] {
+    return this.tags;
+  }
+
+  public getCourses(): Course[] {
+    return this.courses;
+  }
+
+  public getContact(): Contact {
+    return this.contact;
+  }
+
+  public getHoursPerWeek(): number {
+    return this.hoursPerWeek;
+  }
+
+  public getSalary(): number {
+    return this.salary;
+  }
+
+  public getWorkspace(): Workspace {
+    return this.workspace;
+  }
+
+  public getHardSkills(): string {
+    return this.hardSkills;
+  }
+
+  public getSoftSkills(): string {
+    return this.softSkills;
   }
 }

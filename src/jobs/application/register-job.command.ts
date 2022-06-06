@@ -1,18 +1,24 @@
+import { Course } from '../domain/course';
+import { Type } from '../domain/type';
+import { Workspace } from '../domain/workspace';
+
 type Contact = {
-  email: string | null;
-  phone: string | null;
-  url: string | null;
+  email?: string;
+  phone?: string;
+  url?: string;
 };
 
 export class RegisterJobCommand {
   constructor(
+    public readonly title: string,
     public readonly description: string,
     public readonly companyId: string,
-    public readonly type: string,
-    public readonly hoursPerWeek: number | null,
-    public readonly salary: number | null,
-    public readonly workspace: string | null,
-    public readonly courses: string[],
+    public readonly type: Type,
+    public readonly tags: string[],
+    public readonly courses: Course[],
     public readonly contact: Contact,
+    public readonly hoursPerWeek?: number,
+    public readonly salary?: number,
+    public readonly workspace?: Workspace,
   ) {}
 }

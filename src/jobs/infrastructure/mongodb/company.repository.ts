@@ -1,8 +1,8 @@
 import { Inject } from '@nestjs/common';
+import { CompanyId } from 'src/jobs/domain/company-id';
 import { Company } from 'src/jobs/domain/company.entity';
 import { CompanyRepository } from 'src/jobs/domain/company.repository';
 import { DataSource, MongoRepository } from 'typeorm';
-import { CompanyId } from 'src/jobs/domain/company-id';
 
 export class MongoCompanyRepository implements CompanyRepository {
   private repository: MongoRepository<Company>;

@@ -1,12 +1,9 @@
 import { Inject } from '@nestjs/common';
 import { CompanyId } from '../domain/company-id';
 import { Contact } from '../domain/contact.entity';
-import { CourseId } from '../domain/course-id';
 import { JobId } from '../domain/job-id';
 import { Job } from '../domain/job.entity';
 import { JobRepository } from '../domain/job.repository';
-import { Type } from '../domain/type.entity';
-import { Workspace } from '../domain/workspace.entity';
 import { RegisterJobCommand } from './register-job.command';
 
 export class RegisterJobHandler {
@@ -14,27 +11,31 @@ export class RegisterJobHandler {
 
   async execute(command: RegisterJobCommand): Promise<JobId> {
     const {
+      title,
       description,
       companyId,
       type,
+      tags,
+      courses,
       hoursPerWeek,
       salary,
       workspace,
-      courses,
       contact,
     } = command;
 
     const id = new JobId();
     const job = Job.register(
       id,
+      title,
       description,
       new CompanyId(companyId),
-      Type[type],
+      type,
+      tags,
+      courses,
+      Contact.fromStrings(contact?.email, contact?.phone, contact?.url),
       hoursPerWeek,
       salary,
-      Workspace[workspace],
-      courses?.map((c) => new CourseId(c)) ?? [],
-      Contact.fromStrings(contact?.email, contact?.phone, contact?.url),
+      workspace,
     );
 
     await this.jobRepository.save(job);
