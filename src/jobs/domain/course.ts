@@ -1,7 +1,7 @@
 export const validCourses = [
   'Engenharia Ambiental',
   'Engenharia Civil',
-  'Engenharia de Computação e informação',
+  'Engenharia de Computação e Informação',
   'Engenharia de Controle e Automação',
   'Engenharia Elétrica',
   'Engenharia Eletrônica e de Computação',
