@@ -1,4 +1,4 @@
-import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ObjectIdColumn } from 'typeorm';
 import { CompanyId } from './company-id';
 import { Contact } from './contact.entity';
 import { Course } from './course';
@@ -47,6 +47,8 @@ export class Job {
   @Column()
   public readonly softSkills: string;
 
+  @CreateDateColumn()
+  public readonly createdAt: Date;
 
   private constructor(
     id: JobId,
