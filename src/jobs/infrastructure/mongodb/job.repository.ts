@@ -11,7 +11,9 @@ export class MongoJobRepository implements JobRepository {
   }
 
   public async findAll(): Promise<Job[]> {
-    return await this.repository.find();
+    return await this.repository.find({
+      order: { createdAt: 'DESC' },
+    });
   }
 
   public async save(job: Job): Promise<void> {

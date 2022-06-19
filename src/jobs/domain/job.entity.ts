@@ -1,4 +1,4 @@
-import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ObjectIdColumn } from 'typeorm';
 import { CompanyId } from './company-id';
 import { Contact } from './contact.entity';
 import { Course } from './course';
@@ -12,40 +12,43 @@ export class Job {
   private _id: JobId;
 
   @Column()
-  private title: string;
+  public readonly title: string;
 
   @Column()
-  private description: string;
+  public readonly description: string;
 
   @Column()
-  private companyId: CompanyId;
+  public readonly companyId: CompanyId;
 
   @Column()
-  private type: Type;
+  public readonly type: Type;
 
   @Column()
-  private tags: string[];
+  public readonly tags: string[];
 
   @Column()
-  private courses: Course[];
+  public readonly courses: Course[];
 
   @Column(() => Contact)
-  private contact: Contact;
+  public readonly contact: Contact;
 
   @Column()
-  private hoursPerWeek?: number;
+  public readonly hoursPerWeek?: number;
 
   @Column()
-  private salary?: number;
+  public readonly salary?: number;
 
   @Column()
-  private workspace?: Workspace;
+  public readonly workspace?: Workspace;
 
   @Column()
-  private hardSkills: string;
+  public readonly hardSkills: string;
 
   @Column()
-  private softSkills: string;
+  public readonly softSkills: string;
+
+  @CreateDateColumn()
+  public readonly createdAt: Date;
 
   private constructor(
     id: JobId,
@@ -109,55 +112,7 @@ export class Job {
     );
   }
 
-  public getId(): JobId {
+  public id(): JobId {
     return this._id;
-  }
-
-  public getTitle(): string {
-    return this.title;
-  }
-
-  public getDescription(): string {
-    return this.description;
-  }
-
-  public getCompanyId(): CompanyId {
-    return this.companyId;
-  }
-
-  public getType(): Type {
-    return this.type;
-  }
-
-  public getTags(): string[] {
-    return this.tags;
-  }
-
-  public getCourses(): Course[] {
-    return this.courses;
-  }
-
-  public getContact(): Contact {
-    return this.contact;
-  }
-
-  public getHoursPerWeek(): number {
-    return this.hoursPerWeek;
-  }
-
-  public getSalary(): number {
-    return this.salary;
-  }
-
-  public getWorkspace(): Workspace {
-    return this.workspace;
-  }
-
-  public getHardSkills(): string {
-    return this.hardSkills;
-  }
-
-  public getSoftSkills(): string {
-    return this.softSkills;
   }
 }

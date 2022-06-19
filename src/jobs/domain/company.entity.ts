@@ -7,10 +7,10 @@ export class Company {
   private _id: CompanyId;
 
   @Column()
-  private name: string;
+  public readonly name: string;
 
   @Column()
-  private website: string | null;
+  public readonly website: string | null;
 
   private constructor(id: CompanyId, name: string, website: string | null) {
     this._id = id;
@@ -26,15 +26,7 @@ export class Company {
     return new Company(id, name, website);
   }
 
-  public getId(): CompanyId {
+  public id(): CompanyId {
     return this._id;
-  }
-
-  public getName(): string {
-    return this.name;
-  }
-
-  public getWebsite(): string {
-    return this.website;
   }
 }
