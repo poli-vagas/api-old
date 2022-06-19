@@ -17,19 +17,8 @@ export class JobsController {
     const jobs = await this.listJobsHandler.execute();
 
     return jobs.map((job) => ({
-      id: job.getId(),
-      title: job.getTitle(),
-      description: job.getDescription(),
-      companyId: job.getCompanyId(),
-      type: job.getType(),
-      tags: job.getTags(),
-      courses: job.getCourses(),
-      contact: job.getContact(),
-      hoursPerWeek: job.getHoursPerWeek(),
-      salary: job.getSalary(),
-      workspace: job.getWorkspace(),
-      hardSkills: job.getHardSkills(),
-      softSkills: job.getSoftSkills(),
+      id: job.id(),
+      ...job,
     }));
   }
 
