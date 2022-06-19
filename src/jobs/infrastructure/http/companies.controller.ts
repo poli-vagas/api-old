@@ -1,17 +1,17 @@
 import {
+  BadRequestException,
+  Body,
   Controller,
   Get,
   Post,
-  Body,
-  UsePipes,
-  BadRequestException,
+  UsePipes
 } from '@nestjs/common';
-import { JoiValidationPipe } from 'src/shared/http/joi-validation.pipe';
 import { ListCompaniesHandler } from 'src/jobs/application/list-companies.handler';
 import { RegisterCompanyCommand } from 'src/jobs/application/register-company.command';
 import { RegisterCompanyHandler } from 'src/jobs/application/register-company.handler';
 import { Company } from 'src/jobs/domain/company.entity';
 import { CompanyException } from 'src/jobs/domain/exceptions/company.exception';
+import { JoiValidationPipe } from 'src/shared/http/joi-validation.pipe';
 import registerCompanySchema from '../../application/register-company.schema';
 
 @Controller('companies')
@@ -25,9 +25,8 @@ export class CompaniesController {
   async listAll() {
     return (await this.listCompaniesHandler.execute()).map(
       (company: Company) => ({
-        id: company.getId(),
-        name: company.getName(),
-        website: company.getWebsite(),
+        id: company.id(),
+        ...company,
       }),
     );
   }
