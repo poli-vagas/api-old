@@ -4,7 +4,7 @@ import {
   Controller,
   Get,
   Post,
-  UsePipes
+  UsePipes,
 } from '@nestjs/common';
 import { ListCompaniesHandler } from 'src/jobs/application/list-companies.handler';
 import { RegisterCompanyCommand } from 'src/jobs/application/register-company.command';

@@ -23,7 +23,7 @@ import { JobsController } from './jobs.controller';
       useFactory: async () => {
         const dataSource = new DataSource({
           type: 'mongodb',
-          url: 'mongodb+srv://poli-vagas:Ktjgy3t363UoYg6H@cluster0.og6ocxg.mongodb.net',
+          url: process.env.DATABASE_URL,
           database: 'jobs',
           useUnifiedTopology: true,
           useNewUrlParser: true,
